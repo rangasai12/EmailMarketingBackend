@@ -13,6 +13,8 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 
 active_subscribers_queue = Queue()
 
+smtp_username = os.environ.get("SMTP_USERNAME")
+smtp_password = os.environ.get("SMTP_PASSWORD")
 
 def send_email(subscriber, campaign):
     try:
@@ -20,8 +22,6 @@ def send_email(subscriber, campaign):
         smtp_host = 'smtp.mailgun.org'
         smtp_port = 587  # TLS port
 
-        smtp_username = 'postmaster@.mailgun.org'  # Replace with your SMTP username
-        smtp_password = 'smtp_password'  # Replace with your SMTP password
 
 
         # Create an SMTP connection
@@ -46,7 +46,7 @@ def send_email(subscriber, campaign):
 
         # Create a MIME message
         msg = MIMEMultipart()
-        msg['From'] = smtp_username  # Replace with your sender email
+        msg['From'] = smtp_username 
         msg['To'] = subscriber.email
         msg['Subject'] = campaign.subject
 
